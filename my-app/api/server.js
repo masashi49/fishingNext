@@ -34,7 +34,7 @@ app.post('/api/auth/register', async (req, res) => {
 // ユーザーログインAPIの作成
 app.post('/api/auth/login', async (req, res) => {
   const { email, password } = req.body;
-  const user = prisma.user.findUnique({ where: { email } }); // where条件を絞るという意味
+  const user = await prisma.user.findUnique({ where: { email } }); // where条件を絞るという意味
 
   if (!user) {
     return res.status(401).json({
