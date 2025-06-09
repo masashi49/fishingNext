@@ -1,6 +1,14 @@
+import { PostType } from '@/types';
 import React from 'react';
 
-export const Post = () => {
+type Props = {
+  post: PostType;
+};
+
+export const Post = (props: Props) => {
+  const { post } = props;
+
+  console.log(post);
   return (
     <div className="bg-white shadow-md rounded p-4 mt-4 border border-gray-500">
       <div className="mb-4">
@@ -12,10 +20,10 @@ export const Post = () => {
           />
         </div>
         <div>
-          <h2 className="font-semibold text-md">名前</h2>
-          <p className="text-gray-500 text-sm">06/06 21:00</p>
+          <h2 className="font-semibold text-md">{post.author?.username}</h2>
+          <p className="text-gray-500 text-sm">{new Date(post.createdAt).toLocaleString()}</p>
         </div>
-        <p className="text-gray-700">初めての投稿です</p>
+        <p className="text-gray-700">{post.content}</p>
       </div>
     </div>
   );

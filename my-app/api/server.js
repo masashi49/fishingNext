@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 require('dotenv').config(); // 環境変数の適用
 const authRoute = require('./routers/auth');
+const postsRoute = require('./routers/posts');
+
 const cors = require('cors'); // corsのインストールが必要
 
 const PORT = 5001; //  5000だと[nodemon] clean exit - waiting for changes before restart
@@ -9,6 +11,7 @@ const PORT = 5001; //  5000だと[nodemon] clean exit - waiting for changes befo
 app.use(cors()); // corsの適用
 app.use(express.json()); // express側に、json形式で送ると宣言しておく
 app.use('/api/auth', authRoute);
+app.use('/api/posts', postsRoute);
 app.listen(PORT, () => {
   console.log(`server is running on Port ${PORT}`);
 });
