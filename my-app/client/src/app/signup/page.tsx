@@ -1,6 +1,35 @@
+'use client';
+
+import { apiClient } from '@/lib/apiClient';
 import Head from 'next/head';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 export default function Signup() {
+  const [username, setUsername] = useState<String>('');
+  const [email, setEmail] = useState<String>('');
+  const [password, setPassword] = useState<String>('');
+
+  const router = useRouter();
+
+  //React.FormEvent<HTMLFormElement>はonSubmitの型
+  const handoleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // ページのリロードを防ぐ
+    console.log(username, email, password);
+
+    // 新規登録APIをたたく
+    try {
+      await apiClient.post('auth/register', {
+        username,
+        email,
+        password,
+      });
+      router.push('/login'); // 登録成功後にログインページへリダイレクト
+    } catch (error) {
+      alert('入力内容に誤りがあります。');
+    }
+  };
+
   return (
     <div className="flex flex-col justify-center py-12 sm:px-6 lg:px8">
       <Head>
@@ -13,20 +42,21 @@ export default function Signup() {
       </div>
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form action="">
+          <form onSubmit={handoleSubmit}>
             <div>
               <label
                 className="block text-sm font-medium text-gray-700"
-                htmlFor="name"
+                htmlFor="username"
               >
                 お名前
               </label>
               <input
                 type="text"
-                name="name"
-                id="name"
-                autoComplete="name"
+                name="username"
+                id="username"
+                autoComplete="username"
                 required
+                onChange={(e) => setUsername(e.target.value)}
                 className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 text-base focus:outline-none focus:border-indigo-500"
               />
             </div>
@@ -43,6 +73,7 @@ export default function Signup() {
                 id="email"
                 autoComplete="email"
                 required
+                onChange={(e) => setEmail(e.target.value)}
                 className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 text-base focus:outline-none focus:border-indigo-500"
               />
             </div>
@@ -59,6 +90,7 @@ export default function Signup() {
                 id="password"
                 autoComplete="password"
                 required
+                onChange={(e) => setPassword(e.target.value)}
                 className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 text-base focus:outline-none focus:border-indigo-500"
               />
             </div>

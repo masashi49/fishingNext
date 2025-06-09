@@ -1,6 +1,41 @@
+'use client';
+
+import { useAuth } from '@/context/auth';
+import { apiClient } from '@/lib/apiClient';
 import Head from 'next/head';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 export default function Login() {
+  const [email, setEmail] = useState<String>('');
+  const [password, setPassword] = useState<String>('');
+
+  const router = useRouter();
+  const { login } = useAuth(); // useAuthは認証情報を取得するためのカスタムフック
+
+  //React.FormEvent<HTMLFormElement>はonSubmitの型
+  const handoleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // ページのリロードを防ぐ
+
+    // 新規登録APIをたたく
+    try {
+      const responce = await apiClient.post('auth/login', {
+        email,
+        password,
+      });
+
+      const tocken = responce.data.token;
+      login(tocken); // ログイン情報を保存する
+
+      if (tocken) {
+        router.push('/'); // ログインできたらトップページへ
+      }
+
+      //router.push('/'); // ログインできたらトップページへ
+    } catch (error) {
+      alert('入力内容に誤りがあります。');
+    }
+  };
   return (
     <div className="flex flex-col justify-center py-12 sm:px-6 lg:px8">
       <Head>
@@ -13,7 +48,7 @@ export default function Login() {
       </div>
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form action="">
+          <form onSubmit={handoleSubmit}>
             <div>
               <label htmlFor="email">メールアドレス</label>
               <input
@@ -22,6 +57,7 @@ export default function Login() {
                 id="email"
                 autoComplete="email"
                 required
+                onChange={(e) => setEmail(e.target.value)}
                 className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 text-base focus:outline-none focus:border-indigo-500"
               />
             </div>
@@ -33,6 +69,7 @@ export default function Login() {
                 id="password"
                 autoComplete="password"
                 required
+                onChange={(e) => setPassword(e.target.value)}
                 className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 text-base focus:outline-none focus:border-indigo-500"
               />
             </div>
