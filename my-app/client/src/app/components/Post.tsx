@@ -8,7 +8,6 @@ type Props = {
 export const Post = (props: Props) => {
   const { post } = props;
 
-  console.log(post);
   return (
     <div className="bg-white shadow-md rounded p-4 mt-4 border border-gray-500">
       <div className="mb-4">
@@ -21,7 +20,9 @@ export const Post = (props: Props) => {
         </div>
         <div>
           <h2 className="font-semibold text-md">{post.author?.username}</h2>
-          <p className="text-gray-500 text-sm">{new Date(post.createdAt).toLocaleString()}</p>
+          <p className="text-gray-500 text-sm">
+            {new Date(post.createdAt).toLocaleString()}
+          </p>
         </div>
         <p className="text-gray-700">{post.content}</p>
       </div>

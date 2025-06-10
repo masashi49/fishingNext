@@ -19,6 +19,13 @@ router.post('/post', async (req, res) => {
         content,
         authorId: 1,
       },
+      include: {
+        author: {
+          select: {
+            username: true,
+          },
+        },
+      },
     });
     res.status(201).json(newPost);
   } catch (erro) {
@@ -33,6 +40,13 @@ router.get('/latestpost', async (req, res) => {
     const latestPosts = await prisma.post.findMany({
       take: 10,
       orderBy: { createdAt: 'desc' },
+      include: {
+        author: {
+          select: {
+            username: true,
+          },
+        },
+      },
     });
     return res.json(latestPosts);
   } catch (error) {
