@@ -1,10 +1,10 @@
 const { PrismaClient } = require('../generated/prisma');
 const prisma = new PrismaClient();
-
 const router = require('express').Router();
+const isAuthenticated = require('../middlewares/isAuthenticated');
 
 // つぶやき投稿用API
-router.post('/post', async (req, res) => {
+router.post('/post', isAuthenticated, async (req, res) => {
   const { content } = req.body;
 
   if (!content) {
