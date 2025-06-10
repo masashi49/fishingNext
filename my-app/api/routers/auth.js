@@ -24,6 +24,7 @@ router.post('/register', async (req, res) => {
 // ユーザーログインAPIの作成
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
+  // prisma.<model名の小文字>.<メソッド>()
   const user = await prisma.user.findUnique({ where: { email } }); // where条件を絞るという意味
 
   if (!user) {

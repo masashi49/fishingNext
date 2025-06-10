@@ -1,6 +1,4 @@
 const { PrismaClient } = require('../generated/prisma');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 const prisma = new PrismaClient();
 
 const router = require('express').Router();
@@ -19,6 +17,7 @@ router.post('/post', async (req, res) => {
         content,
         authorId: 1,
       },
+      // 最新投稿にも名前を取得
       include: {
         author: {
           select: {
