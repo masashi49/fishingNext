@@ -6,6 +6,7 @@ const isAuthenticated = require('../middlewares/isAuthenticated');
 // つぶやき投稿用API
 router.post('/post', isAuthenticated, async (req, res) => {
   const { content } = req.body;
+  const authorId = req.userId;
 
   if (!content) {
     return res.status(400).json({ message: '投稿内容がありません' });
@@ -15,7 +16,7 @@ router.post('/post', isAuthenticated, async (req, res) => {
     const newPost = await prisma.post.create({
       data: {
         content,
-        authorId: 1,
+        authorId,
       },
       // 最新投稿にも名前を取得
       include: {
