@@ -7,7 +7,6 @@ import React from 'react';
 export const Nabvar = () => {
   const { user, logout } = useAuth();
 
-  console.log(user);
   return (
     <div className="container mx-auto flex justify-between items-center px-2">
       <h1 className="font-semibold text-xl">
@@ -17,6 +16,7 @@ export const Nabvar = () => {
       </h1>
       <nav>
         <ul className="flex items-center">
+          {/* componentにする */}
           {user ? (
             <>
               <li>
