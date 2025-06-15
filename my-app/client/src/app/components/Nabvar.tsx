@@ -5,7 +5,7 @@ import Link from 'next/link';
 import React from 'react';
 
 export const Nabvar = () => {
-  const { user, logout } = useAuth();
+  const { user, logout } = useAuth(); // logoutは実装前
 
   return (
     <div className="container mx-auto flex justify-between items-center px-2">
