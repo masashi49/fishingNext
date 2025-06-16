@@ -52,6 +52,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const login = async (token: string) => {
     localStorage.setItem('auth_token', token);
+    apiClient.defaults.headers['Authorization'] = `Bearer ${token}`; // ログインの時にheaderに値をセットする
+
     try {
       apiClient.get('/users/find').then((res) => {
         setUser(res.data.user);
@@ -61,7 +63,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
   const logout = () => {
-    localStorage.removeItem('auth_token');
+    localStorage.removeItem('auth_token'); // ローカルストレージから削除
+    setUser(null); // 状態を削除
+    delete apiClient.defaults.headers['Authorization']; // headerから削除
   };
   const value = {
     user,
