@@ -10,9 +10,11 @@ router.get('/:userId', async (req, res) => {
     const profile = await prisma.profile.findUnique({
       where: { userId: parseInt(userId) },
       select: {
+        // 限定的に情報を取得する、必要な情報だけを select で指定するのがよい。
         bio: true,
         profileImageUrl: true,
         user: {
+          // リレーションも取れる
           select: {
             id: true,
             username: true,
