@@ -4,6 +4,7 @@ require('dotenv').config(); // 環境変数の適用
 const authRoute = require('./routers/auth');
 const postsRoute = require('./routers/posts');
 const usersRoute = require('./routers/users');
+const profileRoute = require('./routers/profile');
 
 const cors = require('cors'); // corsのインストールが必要
 
@@ -14,6 +15,7 @@ app.use(express.json()); // express側に、json形式で送ると宣言して�
 app.use('/api/auth', authRoute);
 app.use('/api/posts', postsRoute);
 app.use('/api/users', usersRoute);
+app.use('/api/profile', profileRoute);
 app.listen(PORT, () => {
   console.log(`server is running on Port ${PORT}`);
 });

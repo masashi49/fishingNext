@@ -1,7 +1,6 @@
 import React from 'react';
 
-export default function UserProfile({ id }) {
-  console.log(id);
+export default function UserProfile() {
   return (
     <>
       <div className="container mx-auto px-4 py-8">
