@@ -12,7 +12,7 @@ router.get('/:userId', async (req, res) => {
       include: {
         user: {
           include: {
-            profile: true,
+            posts: true,
           },
         },
       },
@@ -22,7 +22,14 @@ router.get('/:userId', async (req, res) => {
       res.status(404).json({ message: 'プロフィールが見つかりませんでした' });
     }
 
-    res.status(200).json(profile);
+    // パスワードを除外
+    const { user, ...rest } = profile;
+    const { password, ...userWithoutPassword } = user;
+
+    res.status(200).json({
+      ...rest,
+      user: userWithoutPassword,
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
