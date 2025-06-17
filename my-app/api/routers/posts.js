@@ -21,8 +21,8 @@ router.post('/post', isAuthenticated, async (req, res) => {
       // 最新投稿にも名前を取得
       include: {
         author: {
-          select: {
-            username: true,
+          include: {
+            profile: true,
           },
         },
       },
@@ -42,8 +42,8 @@ router.get('/latestpost', async (req, res) => {
       orderBy: { createdAt: 'desc' },
       include: {
         author: {
-          select: {
-            username: true,
+          include: {
+            profile: true,
           },
         },
       },
