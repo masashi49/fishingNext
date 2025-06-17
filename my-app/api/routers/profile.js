@@ -9,10 +9,13 @@ router.get('/:userId', async (req, res) => {
   try {
     const profile = await prisma.profile.findUnique({
       where: { userId: parseInt(userId) },
-      include: {
+      select: {
+        bio: true,
+        profileImageUrl: true,
         user: {
-          include: {
-            posts: true,
+          select: {
+            id: true,
+            username: true,
           },
         },
       },
