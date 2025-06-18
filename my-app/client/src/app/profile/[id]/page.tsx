@@ -1,17 +1,28 @@
 import { apiClient } from '@/lib/apiClient';
 import React from 'react';
-import { PostType } from '@/types';
+import { Profile, PostType } from '@/types';
 
 type Params = {
-  params: Promise<{ id: string }>;
+  params: { id: string };
 };
+
+async function fetchProfile(id: string): Promise<Profile | null> {
+  try {
+    const res = await apiClient.get(`profile/${id}`);
+    return res.data;
+  } catch (err) {
+    console.error('失敗:', err);
+    return null;
+  }
+}
 
 export default async function UserProfile({ params }: Params) {
   const { id } = await params; // paramsはawaitしないとエラー出る
-  const res = await apiClient.get(`profile/${id}`);
-  const profile = await res.data;
+  const profile = await fetchProfile(id);
 
-  if (!profile) return null;
+  if (!profile) {
+    return <p>プロフィールが見つかりません</p>;
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">
