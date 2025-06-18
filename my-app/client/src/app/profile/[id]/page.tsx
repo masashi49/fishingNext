@@ -10,6 +10,7 @@ export default async function UserProfile({ params }: Params) {
   const { id } = await params; // paramsはawaitしないとエラー出る
   const res = await apiClient.get(`profile/${id}`);
   const profile = await res.data;
+
   if (!profile) return null;
 
   return (
@@ -56,3 +57,24 @@ export default async function UserProfile({ params }: Params) {
     </div>
   );
 }
+
+// クライアント側でやろうとしたが、SSRした。
+//   const [profile, setProfile] = useState<any>();
+//   const params = useParams();
+
+//   useEffect(() => {
+//     if (!params.id) return;
+
+//     const fetchProfile = async () => {
+//       try {
+//         const res = await apiClient.get(`profile/${params.id}`);
+//         setProfile(res.data);
+//         console.log(res.data);
+//       } catch (error) {
+//         console.log(error);
+//       }
+//     };
+//     fetchProfile();
+//   }, []);
+
+//   if (!profile) return null;
