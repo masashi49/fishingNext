@@ -5,7 +5,6 @@ const router = require('express').Router();
 // ユーザープロフィール
 router.get('/:userId', async (req, res) => {
   const { userId } = req.params;
-  console.log(userId);
   try {
     const profile = await prisma.profile.findUnique({
       where: { userId: parseInt(userId) },
@@ -18,6 +17,7 @@ router.get('/:userId', async (req, res) => {
           select: {
             id: true,
             username: true,
+            posts: true,
           },
         },
       },
