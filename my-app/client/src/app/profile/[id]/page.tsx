@@ -42,7 +42,7 @@ export default async function UserProfile({ params }: Params) {
             </div>
           </div>
         </div>
-        {profile.user.posts.map((post: PostType) => {
+        {/* {profile.user.posts.map((post: PostType) => {
           return (
             <div key={post.id} className="bg-white shadow-md rounded p-4 mb-4">
               <div className="mb-4">
@@ -63,7 +63,7 @@ export default async function UserProfile({ params }: Params) {
               </div>
             </div>
           );
-        })}
+        })} */}
       </div>
     </div>
   );

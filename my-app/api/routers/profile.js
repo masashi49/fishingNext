@@ -13,11 +13,9 @@ router.get('/:userId', async (req, res) => {
         bio: true,
         profileImageUrl: true,
         user: {
-          // リレーションも取れる
           select: {
             id: true,
             username: true,
-            posts: true,
           },
         },
       },
@@ -27,14 +25,7 @@ router.get('/:userId', async (req, res) => {
       res.status(404).json({ message: 'プロフィールが見つかりませんでした' });
     }
 
-    // パスワードを除外
-    const { user, ...rest } = profile;
-    const { password, ...userWithoutPassword } = user;
-
-    res.status(200).json({
-      ...rest,
-      user: userWithoutPassword,
-    });
+    res.status(200).json(profile);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
