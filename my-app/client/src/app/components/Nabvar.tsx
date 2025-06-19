@@ -22,7 +22,7 @@ export const Nabvar = () => {
               <li>
                 <Link
                   className="bg-white text-gray-900 py-2 px-3 rounded-lg font-medium"
-                  href="/profile"
+                  href={`/profile/${user.id}`}
                 >
                   プロフィール
                 </Link>

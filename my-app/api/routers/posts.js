@@ -55,4 +55,33 @@ router.get('/latestpost', async (req, res) => {
   }
 });
 
+// 閲覧ユーザーの投稿だけを取得
+router.get('/:userId', async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const post = await prisma.post.findMany({
+      where: { authorId: parseInt(userId) },
+      orderBy: {
+        createdAt: 'desc',
+      },
+      include: {
+        author: {
+          select: {
+            id: true,
+            username: true,
+          },
+        },
+      },
+    });
+
+    if (!post) {
+      res.status(404).json({ message: '投稿が見つかりませんでした' });
+    }
+
+    res.status(200).json(post);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 module.exports = router;
