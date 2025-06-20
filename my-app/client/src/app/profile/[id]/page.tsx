@@ -2,6 +2,7 @@ import { apiClient } from '@/lib/apiClient';
 import React from 'react';
 import { Profile, PostType, UserType } from '@/types';
 
+// typeと実装が混ざって見ずらいのでリファクタする
 type Params = {
   params: { id: string };
 };
@@ -15,6 +16,7 @@ export type ProfileWithUserAndPosts = {
   posts: PostType[];
 };
 
+// libに移動する
 async function fetchProfileAndPost(
   id: string
 ): Promise<ProfileWithUserAndPosts | null> {
