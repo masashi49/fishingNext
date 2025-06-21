@@ -25,7 +25,7 @@ export default function Signup() {
       });
       router.push('/login'); // 登録成功後にログインページへリダイレクト
     } catch (error) {
-      alert(error + '入力内容に誤りがあります。');
+      alert(error + '入力内容に誤りがあります！');
     }
   };
 
