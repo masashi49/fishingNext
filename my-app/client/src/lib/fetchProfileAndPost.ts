@@ -1,5 +1,15 @@
-import { ProfileWithUserAndPosts } from '@/app/profile/[id]/page';
+import { PostType, Profile, UserType } from '@/types';
 import { apiClient } from './apiClient';
+
+export type UserSummary = Pick<UserType, 'id' | 'username'>;
+export type ProfileSummary = Pick<Profile, 'bio' | 'profileImageUrl'>;
+
+export type ProfileWithUserAndPosts = {
+  profile: ProfileSummary & {
+    user: UserSummary;
+  };
+  posts: PostType[];
+};
 
 // libに移動する
 export const fetchProfileAndPost = async (

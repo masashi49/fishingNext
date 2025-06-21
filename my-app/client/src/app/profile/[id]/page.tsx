@@ -1,22 +1,13 @@
 import React from 'react';
-import { Profile, PostType, UserType } from '@/types';
+import { PostType } from '@/types';
 import { fetchProfileAndPost } from '@/lib/fetchProfileAndPost';
 
 // typeと実装が混ざって見ずらいのでリファクタする
-type Params = {
+type PageProps = {
   params: { id: string };
 };
 
-export type UserSummary = Pick<UserType, 'id' | 'username'>;
-export type ProfileSummary = Pick<Profile, 'bio' | 'profileImageUrl'>;
-export type ProfileWithUserAndPosts = {
-  profile: ProfileSummary & {
-    user: UserSummary;
-  };
-  posts: PostType[];
-};
-
-export default async function UserProfile({ params }: Params) {
+export default async function UserProfile({ params }: PageProps) {
   const { id } = await params; // paramsはawaitしないとエラー出る
   const profileAndPost = await fetchProfileAndPost(id);
 
