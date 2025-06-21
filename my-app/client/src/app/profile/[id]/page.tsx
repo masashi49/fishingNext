@@ -12,7 +12,7 @@ export default async function UserProfile({ params }: PageProps) {
   const profileAndPost = await fetchProfileAndPost(id);
 
   if (!profileAndPost) {
-    return <p>プロフィールが見つかりません</p>;
+    return <p>プロフィールが見つかりませんでした</p>;
   }
 
   return (
