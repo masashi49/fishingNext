@@ -8,7 +8,7 @@ type PageProps = {
 };
 
 export default async function UserProfile({ params }: PageProps) {
-  const { id } = await params; // paramsはawaitしないとエラー出る
+  const { id } = params; // paramsはawaitしないとエラー出る
   const profileAndPost = await fetchProfileAndPost(id);
 
   if (!profileAndPost) {
