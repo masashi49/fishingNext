@@ -20,7 +20,7 @@ export default function TimeLine() {
 
       setPostText('');
     } catch (error) {
-      alert('ログインしてください');
+      alert(error + 'タイムラインが取得できませんでした');
     }
   };
 
@@ -30,7 +30,7 @@ export default function TimeLine() {
         const res = await apiClient.get('posts/latestpost');
         setLatestPosts(res.data);
       } catch (error) {
-        console.log(error);
+        alert(error + 'タイムラインが取得できませんでした');
       }
     };
     fetchLatestPosts();

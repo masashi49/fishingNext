@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import Image from 'next/image';
 import TimeLine from './components/TimeLine';
 
 export default function Home() {

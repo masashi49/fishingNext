@@ -7,8 +7,8 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export default function Login() {
-  const [email, setEmail] = useState<String>('');
-  const [password, setPassword] = useState<String>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
   const router = useRouter();
   const { login } = useAuth(); // useAuthは認証情報を取得するためのカスタムフック
@@ -33,7 +33,7 @@ export default function Login() {
 
       //router.push('/'); // ログインできたらトップページへ
     } catch (error) {
-      alert('入力内容に誤りがあります。');
+      alert(error + '入力内容に誤りがあります。');
     }
   };
   return (

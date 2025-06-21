@@ -6,16 +6,15 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export default function Signup() {
-  const [username, setUsername] = useState<String>('');
-  const [email, setEmail] = useState<String>('');
-  const [password, setPassword] = useState<String>('');
+  const [username, setUsername] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
   const router = useRouter();
 
   //React.FormEvent<HTMLFormElement>はonSubmitの型
   const handoleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // ページのリロードを防ぐ
-    console.log(username, email, password);
 
     // 新規登録APIをたたく
     try {
@@ -26,7 +25,7 @@ export default function Signup() {
       });
       router.push('/login'); // 登録成功後にログインページへリダイレクト
     } catch (error) {
-      alert('入力内容に誤りがあります。');
+      alert(error + '入力内容に誤りがあります。');
     }
   };
 
