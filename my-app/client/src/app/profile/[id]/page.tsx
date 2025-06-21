@@ -1,6 +1,6 @@
-import { apiClient } from '@/lib/apiClient';
 import React from 'react';
 import { Profile, PostType, UserType } from '@/types';
+import { fetchProfileAndPost } from '@/lib/fetchProfileAndPost';
 
 // typeと実装が混ざって見ずらいのでリファクタする
 type Params = {
@@ -15,24 +15,6 @@ export type ProfileWithUserAndPosts = {
   };
   posts: PostType[];
 };
-
-// libに移動する
-async function fetchProfileAndPost(
-  id: string
-): Promise<ProfileWithUserAndPosts | null> {
-  try {
-    const res = await apiClient.get(`profile/${id}`);
-    const postRes = await apiClient.get(`posts/${id}`);
-
-    return {
-      profile: res.data,
-      posts: postRes.data,
-    };
-  } catch (err) {
-    console.error('失敗:', err);
-    return null;
-  }
-}
 
 export default async function UserProfile({ params }: Params) {
   const { id } = await params; // paramsはawaitしないとエラー出る

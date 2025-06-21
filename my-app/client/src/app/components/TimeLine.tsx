@@ -29,7 +29,6 @@ export default function TimeLine() {
       try {
         const res = await apiClient.get('posts/latestpost');
         setLatestPosts(res.data);
-        console.log(res.data);
       } catch (error) {
         console.log(error);
       }
